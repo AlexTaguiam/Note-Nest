@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 import RateLimitedUI from "./RateLimitedUI";
 import LoadingUI from "./LoadingUI";
+import api from "../lib/axios";
 function EditNoteForm() {
   const [note, setNote] = useState({ title: "", content: "" });
 
@@ -17,7 +18,7 @@ function EditNoteForm() {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await axios.get(`http://localhost:5001/api/notes/${id}`);
+        const res = await api.get(`/notes/${id}`);
         setNote(res.data);
         setIsRateLimited(false);
       } catch (error) {
@@ -51,10 +52,7 @@ function EditNoteForm() {
       };
 
       console.log("Note ID prop:", id);
-      const editNote = await axios.put(
-        `http://localhost:5001/api/notes/${id}`,
-        newNote
-      );
+      const editNote = await api.put(`/notes/${id}`, newNote);
 
       console.log("Edited successfully", editNote.data);
       toast.success("Edited Successfully");

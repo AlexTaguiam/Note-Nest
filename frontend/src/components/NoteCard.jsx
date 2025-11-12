@@ -6,23 +6,22 @@ import Button from "./Button";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import DeleteConfirmationUI from "./DeleteConfirmationUI";
+import api from "../lib/axios";
 
 const NoteCard = ({ notes = [], onButtonClick, setNotes }) => {
-  const toNoteDetail = useNavigate();
+  const NavigatePage = useNavigate();
   const [isDeleting, setIsDeleting] = useState(false);
   const [noteId, setNoteId] = useState("");
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
   const handleDelete = async (noteId) => {
     try {
-      setIsDeleteLoading(true);
-      const response = await axios.delete(
-        `http://localhost:5001/api/notes/${noteId}`
-      );
+      const response = await api.delete(`/notes/${noteId}`);
       setNotes((prev) => prev.filter((note) => note._id !== noteId));
       console.log(`Note with ID ${noteId} deleted successfully`, response.data);
       toast.success("Note Deleted Successfully");
       onButtonClick();
+      NavigatePage("/");
     } catch (error) {
       toast.error("Failed Deleting Note");
       console.log("Error in handleDelete function", error);
@@ -61,7 +60,7 @@ const NoteCard = ({ notes = [], onButtonClick, setNotes }) => {
                 <div className="justify-end card-actions">
                   <button
                     className="btn btn-warning"
-                    onClick={() => toNoteDetail(`note/${note._id}`)}
+                    onClick={() => NavigatePage(`note/${note._id}`)}
                   >
                     <Pencil />
                   </button>

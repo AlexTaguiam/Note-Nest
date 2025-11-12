@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
+import api from "../lib/axios";
 
 const CreateNote = () => {
   const backToHome = useNavigate();
@@ -20,10 +21,7 @@ const CreateNote = () => {
         content: content,
       };
 
-      const response = await axios.post(
-        "http://localhost:5001/api/notes",
-        newNote
-      );
+      const response = await api.post("/notes", newNote);
 
       console.log("Data posted successfully", response.data);
       toast.success("Form submitted");
