@@ -26,17 +26,19 @@ const NoteCard = ({ notes = [], onButtonClick, setNotes }) => {
       toast.error("Failed Deleting Note");
       console.log("Error in handleDelete function", error);
     } finally {
-      setIsDeleteLoading(false);
+      setIsDeleting(false);
     }
   };
 
   if (isDeleting) {
     return (
-      <DeleteConfirmationUI
-        onCancel={() => setIsDeleting(false)}
-        onConfirm={() => handleDelete(noteId)}
-        isDeleteLoading={isDeleteLoading}
-      />
+      <div className="h-auto sm:h-[500px]">
+        <DeleteConfirmationUI
+          onCancel={() => setIsDeleting(false)}
+          onConfirm={() => handleDelete(noteId)}
+          isDeleteLoading={isDeleteLoading}
+        />
+      </div>
     );
   }
 
