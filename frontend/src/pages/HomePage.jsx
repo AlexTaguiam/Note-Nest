@@ -2,7 +2,6 @@ import { useNavigate } from "react-router";
 import NavBar from "../components/NavBar";
 import RateLimitedUI from "../components/RateLimitedUI";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import LoadingUI from "../components/LoadingUI";
 import toast from "react-hot-toast";
 import NoteCard from "../components/NoteCard";
@@ -22,7 +21,6 @@ function HomePage() {
         const res = await api.get("/notes");
         dispatch({ type: "GET_NOTES", payload: res.data });
         console.log(res.data);
-        setIsRateLimited(false);
       } catch (error) {
         console.error("error in fetching Notes", error);
 

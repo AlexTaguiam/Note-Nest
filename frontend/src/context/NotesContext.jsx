@@ -11,6 +11,10 @@ export const notesReducer = (state, action) => {
         isRateLimited: false,
         isLoading: false,
       };
+    case "ADD_NOTE":
+      return {
+        notes: [...state.notes, action.payload],
+      };
     default:
       return state;
   }

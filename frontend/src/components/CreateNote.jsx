@@ -4,11 +4,13 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import api from "../lib/axios";
 
+import { useNotesContext } from "../hooks/useNotesContext";
+
 const CreateNote = () => {
   const backToHome = useNavigate();
 
+  const { dispatch } = useNotesContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -22,6 +24,7 @@ const CreateNote = () => {
       };
 
       const response = await api.post("/notes", newNote);
+      dispatch({ type: "ADD_NOTE", payload: response.data });
 
       console.log("Data posted successfully", response.data);
       toast.success("Form submitted");
