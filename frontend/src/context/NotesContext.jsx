@@ -6,7 +6,10 @@ export const notesReducer = (state, action) => {
   switch (action.type) {
     case "GET_NOTES":
       return {
+        ...state,
         notes: action.payload,
+        isRateLimited: false,
+        isLoading: false,
       };
     default:
       return state;
@@ -14,7 +17,13 @@ export const notesReducer = (state, action) => {
 };
 
 export const NotesContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(notesReducer, { notes: null });
+  const initialState = {
+    notes: [],
+    isRateLimited: false,
+    isLoading: true,
+  };
+
+  const [state, dispatch] = useReducer(notesReducer, initialState);
 
   return (
     <NotesContext.Provider value={{ ...state, dispatch }}>

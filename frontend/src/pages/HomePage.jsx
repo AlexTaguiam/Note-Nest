@@ -9,17 +9,18 @@ import NoteCard from "../components/NoteCard";
 import EditNoteForm from "../components/EditNoteForm";
 import EmptyNotesUI from "../components/EmptyNotesUI";
 import api from "../lib/axios";
-
+import { useNotesContext } from "../hooks/useNotesContext";
 function HomePage() {
+  const { notes, dispatch } = useNotesContext();
+
   const [isRateLimited, setIsRateLimited] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [notes, setNotes] = useState([]);
   const [triggerRender, setTriggerRender] = useState(false);
   useEffect(() => {
     const fetchNotes = async () => {
       try {
         const res = await api.get("/notes");
-        setNotes(res.data);
+        dispatch({ type: "GET_NOTES", payload: res.data });
         console.log(res.data);
         setIsRateLimited(false);
       } catch (error) {
@@ -48,7 +49,6 @@ function HomePage() {
       {isRateLimited && <RateLimitedUI />}
 
       <NoteCard
-        setNotes={setNotes}
         notes={notes}
         onButtonClick={() => setTriggerRender((prev) => !prev)}
       />
