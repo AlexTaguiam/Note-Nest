@@ -10,31 +10,28 @@ import EmptyNotesUI from "../components/EmptyNotesUI";
 import api from "../lib/axios";
 import { useNotesContext } from "../hooks/useNotesContext";
 function HomePage() {
-  const { notes, dispatch } = useNotesContext();
+  const { notes, dispatch, isLoading, isRateLimited } = useNotesContext();
 
-  const [isRateLimited, setIsRateLimited] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [triggerRender, setTriggerRender] = useState(false);
   useEffect(() => {
     const fetchNotes = async () => {
+      dispatch({ type: "FETCH_NOTES_START" });
       try {
         const res = await api.get("/notes");
-        dispatch({ type: "GET_NOTES", payload: res.data });
-        console.log(res.data);
+        dispatch({ type: "FETCH_NOTES_SUCCESS", payload: res.data });
+        // console.log(res.data);
       } catch (error) {
         console.error("error in fetching Notes", error);
 
         if (error.response?.status === 429) {
-          setIsRateLimited(true);
+          dispatch({ type: "RATE_LIMITED" });
         } else {
+          dispatch({ type: "FETCH_NOTES_ERROR" });
           toast.error("Failed to Load notes");
         }
-      } finally {
-        setIsLoading(false);
       }
     };
     fetchNotes();
-  }, [triggerRender]);
+  }, []);
 
   if (notes.length === 0) {
     return <EmptyNotesUI />;
@@ -48,7 +45,7 @@ function HomePage() {
 
       <NoteCard
         notes={notes}
-        onButtonClick={() => setTriggerRender((prev) => !prev)}
+        // onButtonClick={() => setTriggerRender((prev) => !prev)}
       />
 
       {false && <EditNoteForm />}

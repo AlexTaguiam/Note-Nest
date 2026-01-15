@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router";
 import RateLimitedUI from "./RateLimitedUI";
 import LoadingUI from "./LoadingUI";
 import api from "../lib/axios";
+
 function EditNoteForm() {
   const [note, setNote] = useState({ title: "", content: "" });
 

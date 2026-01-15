@@ -4,16 +4,42 @@ export const NotesContext = createContext();
 
 export const notesReducer = (state, action) => {
   switch (action.type) {
-    case "GET_NOTES":
+    case "FETCH_NOTES_START":
+      return {
+        ...state,
+        isLoading: true,
+        isRateLimited: false,
+      };
+    case "FETCH_NOTES_SUCCESS":
       return {
         ...state,
         notes: action.payload,
         isRateLimited: false,
         isLoading: false,
       };
+
+    case "FETCH_NOTES_ERROR":
+      return {
+        ...state,
+        isLoading: false,
+      };
+
     case "ADD_NOTE":
       return {
         notes: [...state.notes, action.payload],
+      };
+
+    case "DELETE_NOTE":
+      return {
+        ...state,
+        notes: state.notes.filter((note) => note._id !== action.payload._id),
+      };
+
+    case "RATE_LIMITED":
+      return {
+        ...state,
+        isLoading: false,
+        isRateLimited: true,
       };
     default:
       return state;

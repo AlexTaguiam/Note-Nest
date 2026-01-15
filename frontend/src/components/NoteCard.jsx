@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Pencil, Trash2, XIcon } from "lucide-react";
 import EditNoteForm from "./EditNoteForm";
 import { useNavigate } from "react-router";
@@ -8,7 +7,11 @@ import toast from "react-hot-toast";
 import DeleteConfirmationUI from "./DeleteConfirmationUI";
 import api from "../lib/axios";
 
-const NoteCard = ({ notes = [], onButtonClick, setNotes }) => {
+import { useNotesContext } from "../hooks/useNotesContext";
+
+const NoteCard = () => {
+  const { notes, dispatch, isLoading, isRateLimited } = useNotesContext();
+
   const NavigatePage = useNavigate();
   const [isDeleting, setIsDeleting] = useState(false);
   const [noteId, setNoteId] = useState("");
@@ -16,17 +19,17 @@ const NoteCard = ({ notes = [], onButtonClick, setNotes }) => {
 
   const handleDelete = async (noteId) => {
     try {
-      const response = await api.delete(`/notes/${noteId}`);
-      setNotes((prev) => prev.filter((note) => note._id !== noteId));
-      console.log(`Note with ID ${noteId} deleted successfully`, response.data);
+      setIsDeleteLoading(true);
+      const res = await api.delete(`/notes/${noteId}`);
+      dispatch({ type: "DELETE_NOTE", payload: res.data });
+      console.log(`Note with ID ${noteId} deleted successfully`, res.data);
       toast.success("Note Deleted Successfully");
-      onButtonClick();
-      NavigatePage("/");
     } catch (error) {
       toast.error("Failed Deleting Note");
       console.log("Error in handleDelete function", error);
     } finally {
       setIsDeleting(false);
+      setIsDeleteLoading(false);
     }
   };
 
