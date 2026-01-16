@@ -47,7 +47,7 @@ const NoteCard = () => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-      {notes.map((note) => {
+      {notes?.map((note) => {
         return (
           <div key={note._id} className="card bg-base-200 shadow-sm">
             <div className="card-body">

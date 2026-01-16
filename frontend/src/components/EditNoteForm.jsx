@@ -5,30 +5,31 @@ import { useNavigate, useParams } from "react-router";
 import RateLimitedUI from "./RateLimitedUI";
 import LoadingUI from "./LoadingUI";
 import api from "../lib/axios";
+import { useNotesContext } from "../hooks/useNotesContext";
 
 function EditNoteForm() {
-  const [note, setNote] = useState({ title: "", content: "" });
+  const { dispatch, isLoading, isRateLimited } = useNotesContext();
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [note, setNote] = useState({ title: "", content: "" });
   const [isSaving, setIsSaving] = useState(false);
-  const [isRateLimited, setIsRateLimited] = useState(false);
 
   const backToHome = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
     const fetchNotes = async () => {
+      dispatch({ type: "FETCH_NOTES_START" });
       try {
         const res = await api.get(`/notes/${id}`);
         setNote(res.data);
-        setIsRateLimited(false);
+        dispatch({ type: "FETCH_NOTES_SUCCESS" });
       } catch (error) {
         if (error.response?.status === 429) {
-          setIsRateLimited(true);
+          dispatch({ type: "RATE_LIMITED" });
         }
+        dispatch({ type: "FETCH_NOTES_ERROR" });
         console.error("error in fetching note", error);
-      } finally {
-        setIsLoading(false);
+        toast.error("Error fetching note");
       }
     };
 
@@ -54,12 +55,15 @@ function EditNoteForm() {
 
       console.log("Note ID prop:", id);
       const editNote = await api.put(`/notes/${id}`, newNote);
+      dispatch({ type: "UPDATE_NOTE", payload: editNote.data });
 
       console.log("Edited successfully", editNote.data);
       toast.success("Edited Successfully");
       backToHome("/");
     } catch (error) {
       console.error("Error in handleEditNote function: ", error);
+      dispatch({ type: "FETCH_NOTES_ERROR" });
+      toast.error("Error Editing Notes");
     } finally {
       setIsSaving(false);
     }

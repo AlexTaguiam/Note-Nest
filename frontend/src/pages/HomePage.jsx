@@ -33,7 +33,7 @@ function HomePage() {
     fetchNotes();
   }, []);
 
-  if (notes.length === 0) {
+  if (notes?.length === 0) {
     return <EmptyNotesUI />;
   }
 

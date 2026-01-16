@@ -26,6 +26,7 @@ export const notesReducer = (state, action) => {
 
     case "ADD_NOTE":
       return {
+        ...state,
         notes: [...state.notes, action.payload],
       };
 
@@ -40,6 +41,14 @@ export const notesReducer = (state, action) => {
         ...state,
         isLoading: false,
         isRateLimited: true,
+      };
+    case "UPDATE_NOTE":
+      return {
+        ...state,
+        notes: state.notes?.map((note) =>
+          note._id === action.payload._id ? action.payload : note
+        ),
+        isLoading: false,
       };
     default:
       return state;
