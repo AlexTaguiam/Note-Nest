@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 import RateLimitedUI from "./RateLimitedUI";
 import LoadingUI from "./LoadingUI";
-import api from "../lib/axios";
+import api from "../api/axios";
 import { useNotesContext } from "../hooks/useNotesContext";
 
 function EditNoteForm() {

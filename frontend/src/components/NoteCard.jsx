@@ -5,7 +5,7 @@ import Button from "./Button";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import DeleteConfirmationUI from "./DeleteConfirmationUI";
-import api from "../lib/axios";
+import api from "../api/axios";
 
 import { useNotesContext } from "../hooks/useNotesContext";
 

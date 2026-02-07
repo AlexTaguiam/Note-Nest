@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
-import api from "../lib/axios";
+import api from "../api/axios";
 
 import { useNotesContext } from "../hooks/useNotesContext";
 

@@ -13,11 +13,11 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth, googleProvider } from "../firebase/config";
-import api from "../lib/axios";
+import api from "../api/axios";
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({ Children }) => {
+export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [userRole, setUserRole] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -146,4 +146,10 @@ export const AuthProvider = ({ Children }) => {
     error,
     loading,
   };
+
+  return (
+    <AuthContext.Provider value={{ ...value }}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 };

@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import NoteCard from "../components/NoteCard";
 import EditNoteForm from "../components/EditNoteForm";
 import EmptyNotesUI from "../components/EmptyNotesUI";
-import api from "../lib/axios";
+import api from "../api/axios";
 import { useNotesContext } from "../hooks/useNotesContext";
 function HomePage() {
   const { notes, dispatch, isLoading, isRateLimited } = useNotesContext();
