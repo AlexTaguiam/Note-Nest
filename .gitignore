@@ -31,6 +31,10 @@ serviceAccountKey.json
 .env.local
 
 
+*.msi
+*.exe
 node_modules/
+dist/
+build/
 .firebase/
 *.log
