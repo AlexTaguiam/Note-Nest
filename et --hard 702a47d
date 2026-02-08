@@ -1,0 +1,20 @@
+[33m68fb90f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: reset: moving to origin/main
+[33m702a47d[m HEAD@{1}: commit: Fix teh file path that are not linked together then added the controller for syncing user to teh backend and getting user profile
+[33m06e695c[m HEAD@{2}: commit: added new gitignore
+[33mf180232[m HEAD@{3}: commit: Remove MongoDB installer from repo
+[33m27d74e7[m HEAD@{4}: commit: added new gitignore
+[33m6ce8c5e[m HEAD@{5}: commit: 1.modified the baseURL adding interceptos for managing tokens on post request
+[33m6bee7fe[m HEAD@{6}: commit: Completed all the needed function for logging in with email,password and google in the auth context
+[33md7c2e2d[m HEAD@{7}: commit: Added the firebase config both backend and frontend, and store my secrets inside my dot env file
+[33m841b36d[m HEAD@{8}: commit: File changes for firebase auth
+[33m39c0833[m HEAD@{9}: commit: Refactored edite note form so i can use the reducer and context
+[33mfb83b20[m HEAD@{10}: commit: 1.Refactored the delete function to use the reducer and context
+[33m3c49325[m HEAD@{11}: commit: Successfully added the reducer for managing the add new notes function
+[33ma2854d3[m HEAD@{12}: commit: Refactored fetching and displaying data using with context and reducer
+[33m5c8c2b9[m HEAD@{13}: commit: 1.Deactivated the upstash reate limiting
+[33mb8dc53c[m HEAD@{14}: commit: Added the login controllers that passes input from frontend to the login Model then validate the input from the user if credentials are correct they get a token
+[33ma217356[m HEAD@{15}: commit: 1.Added the controllerfor the signup user it uses statics to save the given email and password with the validator
+[33mb4bff3e[m HEAD@{16}: commit: 1.Fix the error in the upstash renew its url
+[33m68fb90f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{17}: commit: prepared for deployment
+[33m834d613[m HEAD@{18}: Branch: renamed refs/heads/master to refs/heads/main
+[33m834d613[m HEAD@{20}: commit (initial): initial commit
