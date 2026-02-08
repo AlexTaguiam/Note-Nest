@@ -38,3 +38,9 @@ dist/
 build/
 .firebase/
 *.log
+data/
+db/
+mongodb/
+*.db
+*.wt
+*.lock

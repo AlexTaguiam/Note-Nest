@@ -1,6 +1,6 @@
-import admin from "../config/firebase";
+import admin from "../config/firebase.js";
 
-export const authenticateUser = async (req, res, next) => {
+const authenticateUser = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
@@ -31,3 +31,5 @@ export const authenticateUser = async (req, res, next) => {
     });
   }
 };
+
+export default authenticateUser;
