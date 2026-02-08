@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  Children,
-} from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
