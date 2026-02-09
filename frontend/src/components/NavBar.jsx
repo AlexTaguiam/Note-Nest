@@ -1,8 +1,15 @@
 import { PlusIcon } from "lucide-react";
 import { useNavigate } from "react-router";
+import { useAuth } from "../hooks/useAuthContext";
 
 const NavBar = () => {
   const createPage = useNavigate();
+  const { logout } = useAuth();
+  const handleLogout = async () => {
+    await logout();
+    createPage("/");
+  };
+
   return (
     <header className="bg-base-300 border-b border-base-content/10">
       <div className="mx-auto max-w-6xl p-4">
@@ -19,6 +26,11 @@ const NavBar = () => {
             >
               <PlusIcon />
               Add new Note
+            </button>
+          </div>
+          <div>
+            <button onClick={handleLogout} className="btn btn-ghost">
+              Log out
             </button>
           </div>
         </div>

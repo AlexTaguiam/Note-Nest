@@ -1,6 +1,6 @@
 import Note from "../models/Note.js";
 
-export const getAllNotes = async (_, res) => {
+export const getAllNotes = async (req, res) => {
   try {
     const notes = await Note.find().sort({ createdAt: -1 });
     res.status(200).json(notes);
@@ -49,7 +49,7 @@ export const updateNote = async (req, res) => {
     const updatedNote = await Note.findByIdAndUpdate(
       id,
       { title, content },
-      { new: true }
+      { new: true },
     );
 
     if (!updatedNote) {

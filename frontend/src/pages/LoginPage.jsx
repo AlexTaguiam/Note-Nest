@@ -25,12 +25,13 @@ const LoginPage = () => {
         await signup(email, password);
         toast.success("Signup Successfull");
       } else {
-        login(email, password);
+        await login(email, password);
         toast.success("Login Successfull");
       }
       navigate("/");
     } catch (error) {
       console.error("auth error", error);
+      toast.error("Invalid Credentials");
     } finally {
       setIsLoading(false);
     }
