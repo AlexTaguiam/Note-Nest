@@ -20,6 +20,14 @@ export const syncUser = async (req, res) => {
 
       console.log("New User created:", uid);
     } else {
+      if (user.firebaseUid !== uid) {
+        user.firebaseUid = uid;
+        await user.save();
+
+        await admin.auth().setCustomUserClaims(uid, { role: "customer" });
+        console.log("Updated Firebase UID for existing email:", email);
+      }
+
       console.log("Existing user synced", uid);
     }
     res.json({
